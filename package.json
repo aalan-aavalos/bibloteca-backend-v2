@@ -1,0 +1,22 @@
+{
+    "name": "inventario-api",
+    "version": "1.0.0",
+    "type": "module",
+    "scripts": {
+        "dev": "nodemon src/server.js",
+        "start": "node src/server.js",
+        "prisma:generate": "prisma generate",
+        "prisma:migrate": "prisma migrate dev --name init",
+        "prisma:studio": "prisma studio"
+    },
+    "dependencies": {
+        "@prisma/client": "^6.17.1",
+        "dotenv": "^16.4.5",
+        "express": "^4.19.2",
+        "zod": "^3.23.8"
+    },
+    "devDependencies": {
+        "nodemon": "^3.1.0",
+        "prisma": "^6.17.1"
+    }
+}

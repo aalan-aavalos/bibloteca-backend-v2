@@ -1,0 +1,86 @@
+// Proveedor: PostgreSQL. Cambia el provider a "mysql" si usas MySQL.
+datasource db {
+provider = "postgresql"
+url = env("DATABASE_URL")
+}
+
+
+generator client {
+provider = "prisma-client-js"
+}
+
+
+enum MovementType {
+ENTRADA
+SALIDA
+}
+
+
+model Producto {
+id BigInt @id @default(autoincrement())
+codigo String @unique
+nombre String
+descripcion String?
+categoria String?
+unidad String
+stockMinimo Decimal @default(0)
+stockActual Decimal @default(0)
+creadoEn DateTime @default(now())
+actualizadoEn DateTime @updatedAt
+
+
+movimientos Movimiento[]
+}
+
+
+model Proveedor {
+id BigInt @id @default(autoincrement())
+nombre String
+telefono String?
+contacto String?
+creadoEn DateTime @default(now())
+actualizadoEn DateTime @updatedAt
+
+
+movimientos Movimiento[]
+}
+
+
+model Cliente {
+id BigInt @id @default(autoincrement())
+nombre String
+telefono String?
+contacto String?
+creadoEn DateTime @default(now())
+actualizadoEn DateTime @updatedAt
+
+
+movimientos Movimiento[]
+}
+
+
+model Movimiento {
+id BigInt @id @default(autoincrement())
+fecha DateTime @default(now())
+tipo MovementType
+cantidad Decimal
+referencia String?
+responsable String?
+
+
+productoId BigInt
+proveedorId BigInt?
+clienteId BigInt?
+
+
+producto Producto @relation(fields: [productoId], references: [id])
+proveedor Proveedor? @relation(fields: [proveedorId], references: [id])
+cliente Cliente? @relation(fields: [clienteId], references: [id])
+
+
+creadoEn DateTime @default(now())
+
+
+@@index([productoId, fecha(sort: Desc)])
+@@index([tipo])
+}
