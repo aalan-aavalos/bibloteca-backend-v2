@@ -1,0 +1,2 @@
+DATABASE_URL="postgresql://postgres:qwerty11@localhost:5432/inventario"
+PORT=3000

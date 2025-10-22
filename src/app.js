@@ -5,12 +5,17 @@ import movimientosRouter from "./routes/movimientos.routes.js";
 import proveedoresRouter from "./routes/proveedores.routes.js";
 import clientesRouter from "./routes/clientes.routes.js";
 import errorHandler from "./middlewares/errorHandler.js";
-
+import cors from "cors";
 
 dotenv.config();
 
-
 const app = express();
+
+app.use(cors({
+    origin: 'http://localhost:3001',
+    credentials: true
+}));
+
 app.use(express.json());
 
 
